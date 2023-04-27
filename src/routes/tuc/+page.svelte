@@ -1,5 +1,5 @@
 <script lang="ts">
-	let showWardrobe = false
+	let showWardrobe = false;
 </script>
 
 <svg id="back">
@@ -23,13 +23,17 @@
 		/>
 	</svg>
 	<button class="big-button">play now &#x25B6;</button>
-	<button class="big-button" on:click={() => showWardrobe = true}>wardrobe!</button>
+	<button class="big-button" on:click={() => (showWardrobe = true)}>wardrobe!</button>
 </div>
 
 {#if showWardrobe}
-<div id="wardrobe">slect your skin</div>
+	<div id="wardrobe">
+		<div class="container">
+			<div>select your skin</div>
+			<button class="close">x</button>
+		</div>
+	</div>
 {/if}
-
 
 <style>
 	#back {
@@ -50,24 +54,6 @@
 		color: blanchedalmond;
 		background-color: #8516ec;
 	}
-/*
-	.center {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100%;
-		border: 0px solid rgb(153, 170, 0);
-		width: 100%;
-	}*/
-
-
-
-	/* .second-layer {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 2;
-	}*/
 
 	#wardrobe {
 		position: absolute;
@@ -80,5 +66,12 @@
 		color: white;
 		padding: 20px;
 		z-index: 3;
-	} 
+	}
+
+	.container {
+		display: flex;
+	}
+	.close {
+		margin-left: auto;
+	}
 </style>
