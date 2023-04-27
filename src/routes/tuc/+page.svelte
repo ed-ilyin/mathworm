@@ -19,8 +19,8 @@
 </svg>
 
 {#if !hideAll}
-	<div>
-		<svg> <rect x="50" y="56" width="300" height="100" id="blue-rect" /> </svg>
+	<div id="buttons">
+		<svg><rect width="100%" height="100%" id="blue-rect" /></svg>
 		<button class="big-button" on:click={() => (hideAll = true)}>play now &#x25B6;</button>
 		<button class="big-button" on:click={() => (showWardrobe = true)}>wardrobe!</button>
 	</div>
@@ -47,7 +47,9 @@
 		z-index: -1;
 		position: absolute;
 	}
-
+	#buttons {
+		/* display: flex; */
+	}
 	#blue-rect {
 		fill: rgb(0, 0, 255);
 		stroke-width: 3;
@@ -61,7 +63,6 @@
 		color: blanchedalmond;
 		background-color: #8516ec;
 	}
-
 	#wardrobe {
 		position: absolute;
 		top: 50%;
@@ -74,7 +75,6 @@
 		padding: 20px;
 		z-index: 3;
 	}
-
 	.container {
 		display: flex;
 	}
