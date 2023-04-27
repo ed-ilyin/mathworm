@@ -1,5 +1,6 @@
 <script lang="ts">
 	let showWardrobe = false;
+	let hideAll= false
 </script>
 
 <svg id="back">
@@ -12,7 +13,8 @@
 	<rect width="100%" height="100%" fill="url(#stripes)" />
 </svg>
 
-<div class="center second-layer">
+{#if hideAll=== false}
+<div>
 	<svg>
 		<rect
 			x="50"
@@ -22,15 +24,15 @@
 			style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)"
 		/>
 	</svg>
-	<button class="big-button">play now &#x25B6;</button>
+	<button class="big-button" on:click={() => (hideAll = true)}>play now &#x25B6;</button>
 	<button class="big-button" on:click={() => (showWardrobe = true)}>wardrobe!</button>
 </div>
-
+{/if}
 {#if showWardrobe}
 	<div id="wardrobe">
 		<div class="container">
 			<div>select your skin</div>
-			<button class="close">x</button>
+			<button class="close" on:click={() => (showWardrobe = false)}>x</button>
 		</div>
 	</div>
 {/if}
@@ -60,7 +62,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 100%;
+		width: 97%;
 		height: 299px;
 		background-color: blue;
 		color: white;
