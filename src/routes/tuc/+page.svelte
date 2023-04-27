@@ -27,6 +27,8 @@
 	<button class="big-button" on:click={() => (hideAll = true)}>play now &#x25B6;</button>
 	<button class="big-button" on:click={() => (showWardrobe = true)}>wardrobe!</button>
 </div>
+{:else}
+<button on:click={() => hideAll = false}>back ⇇</button>
 {/if}
 {#if showWardrobe}
 	<div id="wardrobe">
