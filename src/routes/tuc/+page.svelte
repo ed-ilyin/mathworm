@@ -1,0 +1,84 @@
+<script lang="ts">
+	let showWardrobe = false
+</script>
+
+<svg id="back">
+	<defs>
+		<pattern id="stripes" patternUnits="userSpaceOnUse" width="20" height="20">
+			<path d="M-1,1 l2,-2 M0,20 l20,-20 M19,21 l2,-2" stroke="#000" stroke-width="1" />
+			<circle cx="5" cy="5" r="10" stroke="black" stroke-width="1" fill="green" />
+		</pattern>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#stripes)" />
+</svg>
+
+<div class="center second-layer">
+	<svg>
+		<rect
+			x="50"
+			y="56"
+			width="300"
+			height="100"
+			style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)"
+		/>
+	</svg>
+	<button class="big-button">play now &#x25B6;</button>
+	<button class="big-button" on:click={() => showWardrobe = true}>wardrobe!</button>
+</div>
+
+{#if showWardrobe}
+<div id="wardrobe">slect your skin</div>
+{/if}
+
+
+<style>
+	#back {
+		background-color: purple;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		position: absolute;
+	}
+
+	.big-button {
+		height: 129px;
+		width: 200px;
+		font-size: 39px;
+		font-weight: 900;
+		color: blanchedalmond;
+		background-color: #8516ec;
+	}
+/*
+	.center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		border: 0px solid rgb(153, 170, 0);
+		width: 100%;
+	}*/
+
+
+
+	/* .second-layer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+	}*/
+
+	#wardrobe {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		height: 299px;
+		background-color: blue;
+		color: white;
+		padding: 20px;
+		z-index: 3;
+	} 
+</style>
