@@ -1,7 +1,12 @@
 <script lang="ts">
 	let showWardrobe = false;
-	let hideAll= false
+	let hideAll = false;
 </script>
+
+<svelte:head>
+	<title>TUC</title>
+	<meta name="description" content="This is TUC game" />
+</svelte:head>
 
 <svg id="back">
 	<defs>
@@ -13,23 +18,16 @@
 	<rect width="100%" height="100%" fill="url(#stripes)" />
 </svg>
 
-{#if hideAll=== false}
-<div>
-	<svg>
-		<rect
-			x="50"
-			y="56"
-			width="300"
-			height="100"
-			style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)"
-		/>
-	</svg>
-	<button class="big-button" on:click={() => (hideAll = true)}>play now &#x25B6;</button>
-	<button class="big-button" on:click={() => (showWardrobe = true)}>wardrobe!</button>
-</div>
+{#if !hideAll}
+	<div>
+		<svg> <rect x="50" y="56" width="300" height="100" id="blue-rect" /> </svg>
+		<button class="big-button" on:click={() => (hideAll = true)}>play now &#x25B6;</button>
+		<button class="big-button" on:click={() => (showWardrobe = true)}>wardrobe!</button>
+	</div>
 {:else}
-<button on:click={() => hideAll = false}>back ⇇</button>
+	<button on:click={() => (hideAll = false)}>back ⇇</button>
 {/if}
+
 {#if showWardrobe}
 	<div id="wardrobe">
 		<div class="container">
@@ -50,6 +48,11 @@
 		position: absolute;
 	}
 
+	#blue-rect {
+		fill: rgb(0, 0, 255);
+		stroke-width: 3;
+		stroke: rgb(0, 0, 0);
+	}
 	.big-button {
 		height: 129px;
 		width: 200px;
@@ -64,7 +67,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 97%;
+		width: 90%;
 		height: 299px;
 		background-color: blue;
 		color: white;
