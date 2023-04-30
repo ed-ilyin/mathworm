@@ -34,7 +34,7 @@
 	</div>
 {:else}
 	<button on:click={() => (hideAll = false)}>back ⇇</button>
-	<Worm>
+	<Worm kp={0.0001} ki={0.000001} kd={0.07}>
 	<Snake />	
 	</Worm>
 	<!-- <Worm kp={0.04} ki={0.0005} kd={0.05} size={40} />
