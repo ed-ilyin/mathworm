@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Worm from '../../worms/Worm.svelte';
-	import Snake from '../Snake.svelte';
+	import Worm from './Worm.svelte';
+	import Snake from './Snake.svelte';
 	let seeds = ['2^5', '3^3', '5*3', '45+45+110', '5^4', '2^4', '10^4', '3^0', '1^-1', '20^3'];
 </script>
 
