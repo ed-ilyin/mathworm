@@ -2,7 +2,7 @@
 	<pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="16" height="4">
 		<path d="M0,2 l16,0" style="stroke:orange; stroke-width:3" />
 	</pattern>
-	<ellipse cx="8" cy="32" rx="8" ry="32" fill="url(#diagonalHatch)" />SKJ
+	<ellipse cx="8" cy="32" rx="12" ry="32" fill="url(#diagonalHatch)" />SKJ
 	<circle cx="3" cy="3" r="3" />
 	<circle cx="13" cy="3" r="3" />
 </svg>
