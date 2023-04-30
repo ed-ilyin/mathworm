@@ -71,9 +71,9 @@
 </div>
 
 <style>
-	#angle {
+	/* #angle {
 		color: white;
-	}
+	} */
 	.worm {
 		position: absolute;
 		z-index: -1;
