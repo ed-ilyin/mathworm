@@ -23,18 +23,26 @@
 {#if !hideAll}
 	<div id="buttons">
 		<svg><rect width="100%" height="100%" id="blue-rect" /></svg>
-		<button class="big-button" on:click={() => (hideAll = true)}>play now &#x25B6;</button>
+		<button
+			class="big-button"
+			on:click={() => {
+				hideAll = true;
+				showWardrobe = false;
+			}}>play now &#x25B6;</button
+		>
 		<button class="big-button" on:click={() => (showWardrobe = true)}>wardrobe!</button>
 	</div>
 {:else}
 	<button on:click={() => (hideAll = false)}>back ⇇</button>
-	<Snake />
-	<Worm kp={0.04} ki={0.0005} kd={0.05} size={40} />
+	<Worm>
+	<Snake />	
+	</Worm>
+	<!-- <Worm kp={0.04} ki={0.0005} kd={0.05} size={40} />
 	<Worm />
 	<Worm kp={0.02} ki={0.0001} kd={0.1} size={24} />
 	<Worm kp={0.01} ki={0.00001} kd={0.2} size={16} />
 	<Worm kp={0.005} ki={0.00001} kd={0.2} size={8} />
-	<Worm kp={0.0025} ki={0.00001} kd={0.2} size={4} />
+	<Worm kp={0.0025} ki={0.00001} kd={0.2} size={4} /> -->
 {/if}
 
 {#if showWardrobe}

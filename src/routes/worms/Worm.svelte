@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import logo from '$lib/images/svelte-logo.svg';
+	// import logo from '$lib/images/svelte-logo.svg';
 	import LogRow from './LogRow.svelte';
 	export let kp = 0.01; // Proportional gain
 	export let ki = 0.0002; // Integral gain
@@ -57,13 +57,11 @@
 	<LogRow tag="velocity" vector={velocity} />
 	<LogRow tag="worm" vector={worm} />
 </table> -->
-<img
-	src={logo}
-	alt="S"
+<div
 	class="worm"
 	style="width: {size}px; height: {size}px; top: {-size / 2}px; left: {-size /
 		2}px; transform: translate({worm[0]}px, {worm[1]}px)"
-/>
+><slot/></div>
 
 <style>
 	.worm {
