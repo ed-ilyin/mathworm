@@ -8,11 +8,10 @@
 </svelte:head>
 
 <div id="buttons">
-	<svg><rect width="100%" height="100%" id="blue-rect" /></svg>
 	<a href="tuc/game"><button class="big-button">play now &#x25B6;</button></a>
 	<button class="big-button" on:click={() => (showWardrobe = true)}>wardrobe!</button>
 </div>
-
+<h1>MATH WORM</h1>
 {#if showWardrobe}
 	<div id="wardrobe">
 		<div class="container">

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	// import logo from '$lib/images/svelte-logo.svg';
-	// import LogRow from './LogRow.svelte';
+	import LogRow from './LogRow.svelte';
 	export let kp = 0.01; // Proportional gain
 	export let ki = 0.0002; // Integral gain
 	export let kd = 0.1; // Derivative gain
 	export let size = 32;
+	export let seeds: any[] = [];
 
 	let frame = 0;
 	let mouse = [0, 0];
@@ -14,8 +14,21 @@
 	let integral = [0, 0];
 	let velocity = [0, 0];
 	let angle = 0;
+	let touchedSeed: any | null = null;
+	let x = 0;
+	let y = 0;
 	// PID
 
+	function checkCollision() {
+		touchedSeed = null;
+		x = (worm[0] / window.innerWidth) * 100;
+		y = (worm[1] / window.innerHeight) * 100;
+		seeds.forEach((seed) => {
+			if (x > seed.x && x < seed.x + seed.size && y > seed.y && y < seed.y + seed.size) {
+				touchedSeed = seed.exercise;
+			}
+		});
+	}
 	function animate() {
 		let error = mouse.map((n, i) => n - worm[i]); // Calculate error signal
 		let derivative = error.map((n, i) => n - prevError[i]); // Calculate derivative term
@@ -27,6 +40,7 @@
 		let diff = mouse.map((n, i) => worm[i] - n); // Calculate error signal
 		angle = (Math.atan2(diff[1], diff[0]) * 180) / Math.PI - 90;
 		prevError = error; // Store previous error for next iteration
+		checkCollision();
 	}
 
 	function handleMouseMove(event: { clientX: number; clientY: number }) {
@@ -54,14 +68,17 @@
 	});
 </script>
 
-<!-- <table>
-	<LogRow tag="mouse" vector={mouse} />
+<table>
+	<!-- <LogRow tag="mouse" vector={mouse} />
 	<LogRow tag="integral" vector={integral} />
 	<LogRow tag="prevError" vector={prevError} />
-	<LogRow tag="velocity" vector={velocity} />
-	<LogRow tag="worm" vector={worm} />
-</table> -->
-<!-- <div id="angle">angle: {Math.round(angle)}</div> -->
+	<LogRow tag="velocity" vector={velocity} /> -->
+	{#each seeds as seed}
+		<LogRow tag={seed.exercise} vector={[seed.x, seed.y]} />
+	{/each}
+	<LogRow tag="worm" vector={[x, y]} />
+</table>
+<div class="log">touchedSeed: {touchedSeed}</div>
 <div
 	class="worm"
 	style="width: {size}px; height: {size}px; top: {-size / 2}px; left: {-size /
@@ -71,9 +88,9 @@
 </div>
 
 <style>
-	/* #angle {
+	.log {
 		color: white;
-	} */
+	}
 	.worm {
 		position: absolute;
 		z-index: -1;
