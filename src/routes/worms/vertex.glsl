@@ -1,15 +1,10 @@
+#version 300 es
 precision mediump float;
 
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+in vec2 v_texcoord;
+out vec4 fragColor;
 
-void main() {
-    vec2 st = gl_FragCoord.xy / u_resolution.xy;
-    st.x *= u_resolution.x / u_resolution.y;
-
-    vec3 color = vec3(0.0);
-    color = vec3(st.x, st.y, abs(sin(u_time)));
-
-    gl_FragColor = vec4(color, 1.0);
+void main(){
+  vec2 uv=v_texcoord.xy;
+  fragColor=vec4(uv,.5,1.);
 }
