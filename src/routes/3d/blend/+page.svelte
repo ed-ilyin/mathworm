@@ -3,6 +3,7 @@
 	let canvas: HTMLCanvasElement;
 	let gl: WebGL2RenderingContext;
 	let program: WebGLProgram;
+	let requestId = 0;
 
 	const vertexShaderSource = `#version 300 es
     in vec2 a_position;
@@ -96,9 +97,16 @@ void main(){
 		function render(time: number) {
 			gl.uniform1f(timeUniformLocation, time / 1000);
 			gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-			requestAnimationFrame(render);
+			requestId = requestAnimationFrame(render);
 		}
-		requestAnimationFrame(render);
+		requestId = requestAnimationFrame(render);
+		return () => {
+			cancelAnimationFrame(requestId);
+			gl.deleteProgram(program);
+			gl.deleteShader(fragmentShader);
+			gl.deleteShader(vertexShader);
+			gl.deleteBuffer(positionBuffer);
+		};
 	});
 </script>
 
