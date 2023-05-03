@@ -28,11 +28,12 @@ vec2 sphIntersect(vec3 ro,vec3 rd,float ra){
 vec3 castRay(vec3 ro,vec3 rd){
   vec2 t=sphIntersect(ro,rd,1.);
   if(t.x<0.){
-    return vec3(rd.z,rd.y,1.);
+    return vec3(rd.y,rd.z,.5);
   }
   vec3 pos=ro+rd*t.x;
   vec3 nor=normalize(pos);
-  vec3 light=normalize(vec3(cos(u_time*2.),sin(u_time*2.),sin(u_time)));
+  vec3 light=normalize(vec3(cos(u_time),sin(u_time),sin(u_time)));
+  // vec3 light=normalize(vec3(-4));
   float diffuse=dot(light,nor);
   // float specular=pow(max(dot(reflect(rd,nor),light),0.),64.);
   vec3 col=vec3(diffuse);
@@ -40,8 +41,9 @@ vec3 castRay(vec3 ro,vec3 rd){
 }
 
 void main(){
-  vec2 uv=gl_FragCoord.xy/u_resolution-vec2(.5);
-  uv.x*=u_resolution.x/u_resolution.y;
+  vec2 uv=gl_FragCoord.xy/u_resolution-.5;
+  float aspectRatio=u_resolution.x/u_resolution.y;
+  if(aspectRatio<1.){uv.y/=aspectRatio;}else{uv.x*=aspectRatio;}
   vec3 ro=vec3(-3.,0.,0.);
   vec3 rd=normalize(vec3(1.,uv.x,uv.y));
   vec3 col=castRay(ro,rd);
