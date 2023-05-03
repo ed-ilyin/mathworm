@@ -19,6 +19,7 @@
 		gl = canvas.getContext('webgl2') as WebGL2RenderingContext;
 		updateCanvasSize();
 		window.addEventListener('resize', updateCanvasSize);
+
 		const vertexShader = gl.createShader(gl.VERTEX_SHADER) as WebGLShader;
 		gl.shaderSource(vertexShader, vertexShaderSource);
 		gl.compileShader(vertexShader);
@@ -27,7 +28,7 @@
 			return;
 		}
 		const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER) as WebGLShader;
-		let fragmentShaderSource = await fetch('rays.frag').then((res) => res.text());
+		let fragmentShaderSource = await fetch('moon2.frag').then((res) => res.text());
 		gl.shaderSource(fragmentShader, fragmentShaderSource);
 		gl.compileShader(fragmentShader);
 		if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
@@ -65,9 +66,10 @@
 		requestId = requestAnimationFrame(render);
 		return () => {
 			cancelAnimationFrame(requestId);
+			window.removeEventListener('resize', updateCanvasSize);
 			gl.deleteProgram(program);
-			gl.deleteShader(vertexShader);
 			gl.deleteShader(fragmentShader);
+			gl.deleteShader(vertexShader);
 			gl.deleteBuffer(positionBuffer);
 		};
 	});
