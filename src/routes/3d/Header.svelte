@@ -10,8 +10,11 @@
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
 		<ul>
-			<li aria-current={$page.url.pathname.startsWith('/3d/moon') ? 'page' : undefined}>
+			<li aria-current={$page.url.pathname === '/3d/moon' ? 'page' : undefined}>
 				<a href="/3d/moon">Moon</a>
+			</li>
+			<li aria-current={$page.url.pathname.startsWith('/3d/moon2') ? 'page' : undefined}>
+				<a href="/3d/moon2">Moon 2</a>
 			</li>
 			<li aria-current={$page.url.pathname.startsWith('/3d/rays') ? 'page' : undefined}>
 				<a href="/3d/rays">Rays</a>
