@@ -2,4 +2,4 @@
 	import Canvas from '../Canvas.svelte';
 </script>
 
-<Canvas shader="rays.frag" />
+<Canvas shaderFileName="rays.frag" />
