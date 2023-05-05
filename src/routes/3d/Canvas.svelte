@@ -6,21 +6,17 @@
 	let fragmentShader: WebGLShader | undefined = undefined;
 	let program: WebGLProgram;
 	let requestId = 0;
+	let ulMouse: WebGLUniformLocation | null = null;
+	let ulResolution: WebGLUniformLocation | null = null;
 
 	const vertexShaderSource = `#version 300 es
     in vec2 a_position;
     void main() { gl_Position = vec4(a_position, 0., 1.); }`;
 
-	function updateCanvasSize() {
-		canvas.width = window.innerWidth * window.devicePixelRatio;
-		canvas.height = window.innerHeight * window.devicePixelRatio;
-		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-	}
-
-	async function reloadFragmentShader(oldFragmentShader: WebGLShader | null) {
+	async function reloadFragmentShader(oldFragmentShader: WebGLShader | undefined) {
 		let frag = await fetch(shaderFileName);
 		let fragmentShaderSource = await frag.text();
-		gl.deleteShader(oldFragmentShader);
+		if (oldFragmentShader) gl.deleteShader(oldFragmentShader);
 		const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER) as WebGLShader;
 		gl.shaderSource(fragmentShader, fragmentShaderSource);
 		gl.compileShader(fragmentShader);
@@ -39,12 +35,8 @@
 		}
 		return fragmentShader;
 	}
-
-	onMount(async () => {
+	async function load(): Promise<[WebGLShader, WebGLBuffer | null] | undefined> {
 		gl = canvas.getContext('webgl2') as WebGL2RenderingContext;
-		updateCanvasSize();
-		window.addEventListener('resize', updateCanvasSize);
-
 		const vertexShader = gl.createShader(gl.VERTEX_SHADER) as WebGLShader;
 		gl.shaderSource(vertexShader, vertexShaderSource);
 		gl.compileShader(vertexShader);
@@ -62,26 +54,49 @@
 		gl.attachShader(program, vertexShader);
 		fragmentShader = await reloadFragmentShader(fragmentShader);
 		gl.useProgram(program);
+
 		const positionBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
 		const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
 		gl.enableVertexAttribArray(positionAttributeLocation);
 		gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
-		const resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution');
-		const timeUniformLocation = gl.getUniformLocation(program, 'u_time');
+
+		ulResolution = gl.getUniformLocation(program, 'u_resolution');
+		const ulTime = gl.getUniformLocation(program, 'u_time');
+		ulMouse = gl.getUniformLocation(program, 'u_mouse');
 		function render(time: number) {
-			gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
-			gl.uniform1f(timeUniformLocation, time / 1000);
+			gl.uniform1f(ulTime, time / 1000);
 			gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 			requestId = requestAnimationFrame(render);
 		}
 		requestId = requestAnimationFrame(render);
+		return [vertexShader, positionBuffer];
+	}
+	function updateCanvasSize() {
+		canvas.width = window.innerWidth * window.devicePixelRatio;
+		canvas.height = window.innerHeight * window.devicePixelRatio;
+		gl.viewport(-1, 0, gl.canvas.width, gl.canvas.height);
+		gl.uniform2f(ulResolution, gl.canvas.width, gl.canvas.height);
+	}
+	function updateMousePosition(e: MouseEvent) {
+		gl.uniform2f(ulMouse, e.clientX, e.clientY);
+	}
+	onMount(async () => {
+		const result = await load();
+		if (result) {
+			const [vertexShader, positionBuffer] = result;
+		}
+		updateCanvasSize();
+		window.addEventListener('resize', updateCanvasSize);
+		window.addEventListener('mousemove', updateMousePosition);
+
 		return () => {
 			cancelAnimationFrame(requestId);
 			window.removeEventListener('resize', updateCanvasSize);
+			window.removeEventListener('mousemove', updateMousePosition);
 			gl.deleteProgram(program);
-			gl.deleteShader(fragmentShader);
+			if (fragmentShader) gl.deleteShader(fragmentShader);
 			gl.deleteShader(vertexShader);
 			gl.deleteBuffer(positionBuffer);
 		};

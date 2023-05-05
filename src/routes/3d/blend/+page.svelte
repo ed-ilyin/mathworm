@@ -2,4 +2,4 @@
 	import Canvas from '../Canvas.svelte';
 </script>
 
-<Canvas shaderFileName="moon.frag" />
+<Canvas shaderFileName="blend.frag" />

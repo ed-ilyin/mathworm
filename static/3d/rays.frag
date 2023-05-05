@@ -10,8 +10,8 @@ uniform vec2 u_seed1;
 uniform vec2 u_seed2;
 out vec4 outColor;
 
-const float MAX_DIST=99999.;
-const int MAX_REF=8;
+const float MAX_DIST=10000.;
+const int MAX_REF=5;
 vec3 light=normalize(vec3(-.5,.75,-1.));
 
 uvec4 R_STATE;
@@ -108,7 +108,7 @@ vec4 castRay(inout vec3 ro,inout vec3 rd){
     spheres[2][0]=vec4(1.,-2.,-.01,1.);
     spheres[3][0]=vec4(3.5,-1.,.5,.5);
     spheres[4][0]=vec4(-3.5,-1.,0.,.5);
-    spheres[5][0]=vec4(-5.5,-.5,-.01,1.);
+    spheres[5][0]=vec4(-5.5,-2.5,-.01,1.);
     spheres[0][1]=vec4(1.,1.,1.,-.5);
     spheres[1][1]=vec4(1.,1.,1.,.5);
     spheres[2][1]=vec4(1.,0.,.5,1.);
