@@ -10,17 +10,17 @@
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
 		<ul>
-			<li aria-current={$page.url.pathname === '/3d/moon' ? 'page' : undefined}>
-				<a href="/3d/moon">Moon</a>
+			<li aria-current={$page.url.pathname === '/gl/moon' ? 'page' : undefined}>
+				<a href="/gl/moon">Moon</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/3d/moon2') ? 'page' : undefined}>
-				<a href="/3d/moon2">Moon 2</a>
+			<li aria-current={$page.url.pathname.startsWith('/gl/moon2') ? 'page' : undefined}>
+				<a href="/gl/moon2">Moon 2</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/3d/rays') ? 'page' : undefined}>
-				<a href="/3d/rays">Rays</a>
+			<li aria-current={$page.url.pathname.startsWith('/gl/rays') ? 'page' : undefined}>
+				<a href="/gl/rays">Rays</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/3d/blend') ? 'page' : undefined}>
-				<a href="/3d/blend">Blend</a>
+			<li aria-current={$page.url.pathname.startsWith('/gl/blend') ? 'page' : undefined}>
+				<a href="/gl/blend">Blend</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">

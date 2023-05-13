@@ -22,8 +22,11 @@
 			<li aria-current={$page.url.pathname.startsWith('/tuc') ? 'page' : undefined}>
 				<a href="/tuc">tuc</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/3d') ? 'page' : undefined}>
-				<a href="/3d/moon">3D</a>
+			<li aria-current={$page.url.pathname.startsWith('/gl') ? 'page' : undefined}>
+				<a href="/gl/moon">GL</a>
+			</li>
+			<li aria-current={$page.url.pathname.startsWith('/gpu') ? 'page' : undefined}>
+				<a href="/gpu">GPU</a>
 			</li>
 			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
 				<a href="/about">About</a>
