@@ -1,13 +1,18 @@
 <script lang="ts">
 	let canvas: HTMLCanvasElement;
-	if (typeof navigator !== 'undefined') {
-		let gpu = navigator.gpu;
-		if (!gpu) {
-			console.error('WebGPU not supported');
+	(async () => {
+		if (typeof navigator !== 'undefined') {
+			let gpu = navigator.gpu;
+			if (!gpu) {
+				console.error('No GPU found');
+			} else {
+				let adapter = await gpu.requestAdapter();
+				if (!adapter) {
+					console.error('No adapter found');
+				}
+			}
 		}
-        async function adapter() { return await gpu.requestAdapter() }
-        
-	}
+	})();
 </script>
 
 <canvas bind:this={canvas} />
